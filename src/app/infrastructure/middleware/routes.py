@@ -1,0 +1,28 @@
+from typing import Any
+
+from httpx import Request
+
+
+class MiddlewareRoutes:
+    __api_url: str
+
+    def condpgto(self, data: dict[str, Any]) -> Request:
+        return Request(
+            url=f"{self.__api_url}/fetchcondicoespagamento",
+            method="POST",
+            json=data,
+        )
+
+    def cotacao(self, data: dict[str, Any]) -> Request:
+        return Request(
+            url=f"{self.__api_url}/fetchrespostacotacao",
+            method="POST",
+            json=data,
+        )
+
+    def retorno(self, data: dict[str, Any]) -> Request:
+        return Request(
+            url=f"{self.__api_url}/fetchretornopedido",
+            method="POST",
+            json=data,
+        )
