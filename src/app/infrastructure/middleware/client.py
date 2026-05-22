@@ -19,10 +19,8 @@ class MiddlewareClient(MiddlewareClientPort):
 
         return MiddlewareResponse(data=response.json())
 
-    # def send_pedido(self, payload: dict[str, Any]) -> MiddlewareResponse:
-    #     response = self.exchanger.pedido(params=HecateParams(), payload=payload)
-    #
-    #     return MiddlewareResponse(data=response.json())
+    def send_pedido(self, payload) -> MiddlewareResponse:
+        return None
 
     def send_retorno(self, payload: CTFRetornoRequestDTO) -> MiddlewareResponseData:
         response = self.exchanger.retorno(payload=payload)
