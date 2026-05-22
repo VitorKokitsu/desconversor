@@ -6,27 +6,19 @@ from odysseia.request.retorno import RetornoFaturamentoRequestDTO
 from app.application.mapper.condpgto import CondpgtoMapper
 from app.application.mapper.cotacao import CotacaoMapper
 from app.application.mapper.retorno import RetornoMapper
-from app.application.services.job_identifier import JobIdentifier
-from app.domain.ports.middleware_port import MiddlewareClientPort
-from app.domain.ports.s3_port import S3Port
+from app.domain.ports.get_payload_port import GetPayloadPort
 
 
 class ProcessConversorUseCase:
 
     def __init__(
         self,
-        s3: S3Port,
-        middleware_client: MiddlewareClientPort,
-        process_identifier: JobIdentifier,
+        get_payload: GetPayloadPort,
     ):
-        self.s3 = s3
-        self.middleware_client = middleware_client
-        self.process_identifier = process_identifier
+        self.get_payload = get_payload
 
     def execute(self, s3_key: str, allow_send: bool) -> dict:
-        raw_payload = self.s3.get_object(s3_key)
-
-        job_name, raw_payload = self.process_identifier.identify(raw_payload)
+        job_name, platform, raw_payload = self.get_payload.get_object(s3_key)
 
         match job_name:
             case JobNameEnum.CONDICAO_PAGAMENTO:
@@ -34,14 +26,12 @@ class ProcessConversorUseCase:
                 middleware_dto = CondpgtoMapper.to_middleware(protheus_dto)
                 if not allow_send:
                     return middleware_dto.model_dump()
-                response = self.middleware_client.send_condpgto(middleware_dto)
 
             case JobNameEnum.COTACAO:
                 protheus_dto = CotacaoRequestDTO(**raw_payload)
                 middleware_dto = CotacaoMapper.to_middleware(protheus_dto)
                 if not allow_send:
                     return middleware_dto.model_dump()
-                response = self.middleware_client.send_cotacao(middleware_dto)
 
             case JobNameEnum.PEDIDO:
                 print()
@@ -51,7 +41,6 @@ class ProcessConversorUseCase:
                 middleware_dto = RetornoMapper.to_middleware(protheus_dto)
                 if not allow_send:
                     return middleware_dto.model_dump()
-                response = self.middleware_client.send_retorno(middleware_dto)
 
             case _:
                 raise ValueError("Processo não suportado")

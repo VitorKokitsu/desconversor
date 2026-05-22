@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class S3Port(ABC):
+class GetPayloadPort(ABC):
 
     @abstractmethod
     def get_object(self, key: str) -> dict:

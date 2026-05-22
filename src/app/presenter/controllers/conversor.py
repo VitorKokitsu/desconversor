@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 @router.post("/conversor")
-def process_conversor(request: ProcessConversorRequest):
+def conversor(request: ProcessConversorRequest):
     use_case = build_process_conversor()
 
     return use_case.execute(request.transaction_id, request.permite_envio)

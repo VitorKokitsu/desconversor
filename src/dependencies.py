@@ -1,16 +1,11 @@
-from app.application.services.job_identifier import JobIdentifier
 from app.application.use_cases.process_conversor import ProcessConversorUseCase
 from app.infrastructure.middleware.client import MiddlewareClient
-from app.infrastructure.s3 import S3Connection
+from app.infrastructure.get_payload_data import GetPayloadData
 
 
 def build_process_conversor() -> ProcessConversorUseCase:
-    s3_connection = S3Connection()
-    middleware_client = MiddlewareClient()
-    process_identifier = JobIdentifier()
+    s3_connection = GetPayloadData()
 
     return ProcessConversorUseCase(
-        s3=s3_connection,
-        middleware_client=middleware_client,
-        process_identifier=process_identifier,
+        get_payload=s3_connection,
     )
