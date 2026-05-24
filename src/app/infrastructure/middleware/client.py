@@ -1,3 +1,4 @@
+from app.application.dtos.request.autenticacao import AutenticacaoRequestDTO
 from app.application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
 from app.application.dtos.request.cotacao import CTFCotacaoRequestDTO
 from app.application.dtos.request.retorno import CTFRetornoRequestDTO
@@ -7,7 +8,13 @@ from app.infrastructure.middleware.exchanger import MiddlewareExchanger
 
 
 class MiddlewareClient(MiddlewareClientPort):
-    exchanger: MiddlewareExchanger
+    def __init__(self, exchanger: MiddlewareExchanger) -> None:
+        self.exchanger = exchanger
+
+    def send_autenticacao(self, payload: AutenticacaoRequestDTO) -> MiddlewareResponse:
+        response = self.exchanger.autenticacao(payload=payload)
+
+        return MiddlewareResponse(data=response.json())
 
     def send_condpgto(self, payload: CTFCondigcaoPagamentoRequestDTO) -> MiddlewareResponse:
         response = self.exchanger.condpgto(payload=payload)

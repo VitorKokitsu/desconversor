@@ -1,7 +1,7 @@
 [project]
 name = "desconversor"
 version = "0.1.0"
-description = "Add your description here"
+description = "API para converter payloads de integracao antes do envio ao middleware"
 requires-python = ">=3.14"
 dependencies = [
     "boto3>=1.41.3",

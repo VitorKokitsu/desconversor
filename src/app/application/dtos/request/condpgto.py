@@ -11,4 +11,4 @@ class CTFCondigcaoPagamentoRequestDTO(CTFLCondicaoPagamentoRequestDTO):
     idRepresentante: int = 0
     url_acesso: str | None = None
     dadoAuxiliar: str | None = None
-    use_zt: str = "true"
+    use_zt: str = "false"

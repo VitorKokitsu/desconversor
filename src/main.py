@@ -11,6 +11,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 def main() -> None:
     uvicorn.run("asgi:app", host="0.0.0.0", reload=True)
 

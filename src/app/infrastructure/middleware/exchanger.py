@@ -3,6 +3,7 @@ from time import sleep
 
 from httpx import Client, Response, Request, Timeout
 
+from app.application.dtos.request.autenticacao import AutenticacaoRequestDTO
 from app.application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
 from app.application.dtos.request.cotacao import CTFCotacaoRequestDTO
 from app.application.dtos.request.retorno import CTFRetornoRequestDTO
@@ -10,9 +11,18 @@ from app.infrastructure.middleware.routes import MiddlewareRoutes
 
 
 class MiddlewareExchanger:
-    client: Client
-    routes: MiddlewareRoutes
     logger = logging.getLogger(__name__)
+
+    def __init__(self, client: Client, routes: MiddlewareRoutes) -> None:
+        self.client = client
+        self.routes = routes
+
+    def autenticacao(self, payload: AutenticacaoRequestDTO) -> Response:
+        return self._send(
+            request=self.routes.autenticacao(
+                data=payload.model_dump(mode="json"),
+            ),
+        )
 
     def condpgto(self, payload: CTFCondigcaoPagamentoRequestDTO) -> Response:
         return self._send(

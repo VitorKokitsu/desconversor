@@ -7,6 +7,14 @@ class MiddlewareRoutes:
     def __init__(self, api_url: str) -> None:
         self.__api_url = api_url.removesuffix("/")
 
+    def autenticacao(self, data: dict[str, Any]) -> Request:
+        return Request(
+            url=f"{self.__api_url}/fetchautenticacao",
+            params={"use_zt": False},
+            method="POST",
+            json=data,
+        )
+
     def condpgto(self, data: dict[str, Any]) -> Request:
         return Request(
             url=f"{self.__api_url}/fetchcondicoespagamento",

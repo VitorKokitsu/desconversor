@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class GetPayloadPort(ABC):
+class PayloadStorage(ABC):
 
     @abstractmethod
     def get_object(self, key: str) -> dict:
