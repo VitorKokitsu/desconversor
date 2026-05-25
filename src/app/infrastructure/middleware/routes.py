@@ -17,7 +17,7 @@ class MiddlewareRoutes:
 
     def condpgto(self, data: dict[str, Any]) -> Request:
         return Request(
-            url=f"{self.__api_url}/fetchcondicoespagamento",
+            url=f"{self.__api_url}/cotefacil/fetchcondicoespagamento",
             params={"use_zt": False},
             method="POST",
             json=data,
@@ -25,14 +25,14 @@ class MiddlewareRoutes:
 
     def cotacao(self, data: dict[str, Any]) -> Request:
         return Request(
-            url=f"{self.__api_url}/fetchrespostacotacao",
+            url=f"{self.__api_url}/cotefacil/fetchrespostacotacao",
             method="POST",
             json=data,
         )
 
     def retorno(self, data: dict[str, Any]) -> Request:
         return Request(
-            url=f"{self.__api_url}/fetchretornopedido",
+            url=f"{self.__api_url}/cotefacil/fetchretornopedido",
             method="POST",
             json=data,
         )
