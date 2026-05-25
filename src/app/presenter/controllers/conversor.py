@@ -24,8 +24,12 @@ def enviar(request: ProcessConversorRequest):
 @router.post("/conversor/payload")
 def payload(payload: dict[str, Any]):
     use_case = build_process_conversor()
-    return _execute_or_400(lambda: use_case.payload(payload))
+    return _execute_or_400(lambda: use_case.payload(raw_payload=payload, allow_send=False))
 
+@router.post("/conversor/payload/enviar")
+def payload(payload: dict[str, Any]):
+    use_case = build_process_conversor(require_middleware=True)
+    return _execute_or_400(lambda: use_case.payload(raw_payload=payload, allow_send=True))
 
 def _execute_or_400(handler):
     try:
