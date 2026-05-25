@@ -2,11 +2,11 @@ from os import environ
 
 from httpx import Client
 
-from app.application.use_cases.conversor import ConversorUseCase
-from app.infrastructure.middleware.client import MiddlewareClient
-from app.infrastructure.middleware.exchanger import MiddlewareExchanger
-from app.infrastructure.middleware.routes import MiddlewareRoutes
-from app.infrastructure.s3_connection import S3Connection
+from application.use_cases.conversor import ConversorUseCase
+from infrastructure.middleware.client import MiddlewareClient
+from infrastructure.middleware.exchanger import MiddlewareExchanger
+from infrastructure.middleware.routes import MiddlewareRoutes
+from infrastructure.s3_connection import S3Connection
 
 
 def build_middleware_client() -> MiddlewareClient:

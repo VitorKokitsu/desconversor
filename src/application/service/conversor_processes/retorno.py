@@ -2,8 +2,8 @@ from typing import Any
 
 from odysseia.request.retorno import RetornoFaturamentoRequestDTO
 
-from app.application.mapper.retorno import RetornoMapper
-from app.application.ports.process import Process
+from application.mapper.retorno import RetornoMapper
+from application.ports.process import Process
 
 
 class RetornoFaturamentoProcess(Process):

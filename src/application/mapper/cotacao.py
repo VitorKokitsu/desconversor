@@ -1,6 +1,6 @@
 from odysseia.request.cotacao import CotacaoRequestDTO
 
-from app.application.dtos.request.cotacao import CTFCotacaoRequestDTO, CotacaoClienteDTO, CotacaoClienteItemDTO
+from application.dtos.request.cotacao import CTFCotacaoRequestDTO, CotacaoClienteDTO, CotacaoClienteItemDTO
 
 
 class CotacaoMapper:

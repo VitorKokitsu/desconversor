@@ -4,7 +4,7 @@ from typing import Any
 
 from homero.aws.s3 import get_s3_object
 
-from app.domain.ports.get_payload_port import PayloadStorage
+from domain.ports.get_payload_port import PayloadStorage
 
 
 class S3Connection(PayloadStorage):

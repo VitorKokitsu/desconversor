@@ -2,15 +2,15 @@ from typing import Any
 
 from homero.enum import JobNameEnum
 
-from app.application.service.conversor_processes import (
+from application.service.conversor_processes import (
     CondicaoPagamentoProcess,
     CotacaoProcess,
     Process,
     RetornoFaturamentoProcess,
 )
-from app.application.service.get_payload import GetPayload
-from app.domain.ports.get_payload_port import PayloadStorage
-from app.domain.ports.middleware_port import MiddlewareClientPort
+from application.service.get_payload import GetPayload
+from domain.ports.get_payload_port import PayloadStorage
+from domain.ports.middleware_port import MiddlewareClientPort
 
 
 class ConversorUseCase:

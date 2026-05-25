@@ -2,7 +2,7 @@ from typing import Any
 
 from odysseia.request.condpgto import CondicaoPagamentoRequestDTO
 
-from app.application.dtos.request.autenticacao import AutenticacaoRequestDTO, AutenticacaoClienteRequestDTO
+from application.dtos.request.autenticacao import AutenticacaoRequestDTO, AutenticacaoClienteRequestDTO
 
 
 class AutenticacaoMapper:

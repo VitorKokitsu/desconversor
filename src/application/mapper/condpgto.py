@@ -1,7 +1,7 @@
 from odysseia.request.condpgto import CondicaoPagamentoRequestDTO
 from odysseia.request.cotefacil.condpgto import CTFLCondicaoPagamentoRequestClienteDTO
 
-from app.application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
+from application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
 
 
 class CondpgtoMapper:

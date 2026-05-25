@@ -2,8 +2,8 @@ from typing import Any
 
 from odysseia.request.cotacao import CotacaoRequestDTO
 
-from app.application.mapper.cotacao import CotacaoMapper
-from app.application.ports.process import Process
+from application.mapper.cotacao import CotacaoMapper
+from application.ports.process import Process
 
 
 class CotacaoProcess(Process):

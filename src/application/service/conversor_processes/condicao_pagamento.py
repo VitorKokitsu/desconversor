@@ -2,9 +2,9 @@ from typing import Any
 
 from odysseia.request.condpgto import CondicaoPagamentoRequestDTO
 
-from app.application.mapper.autenticacao import AutenticacaoMapper
-from app.application.mapper.condpgto import CondpgtoMapper
-from app.application.ports.process import Process
+from application.mapper.autenticacao import AutenticacaoMapper
+from application.mapper.condpgto import CondpgtoMapper
+from application.ports.process import Process
 
 
 class CondicaoPagamentoProcess(Process):

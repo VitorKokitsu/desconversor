@@ -5,7 +5,7 @@ from odysseia.request.cotefacil.retorno import (
 )
 from odysseia.request.retorno import RetornoFaturamentoRequestDTO
 
-from app.application.dtos.request.retorno import CTFRetornoRequestDTO
+from application.dtos.request.retorno import CTFRetornoRequestDTO
 
 
 class RetornoMapper:

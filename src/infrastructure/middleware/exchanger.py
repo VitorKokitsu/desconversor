@@ -3,11 +3,11 @@ from time import sleep
 
 from httpx import Client, Response, Request, Timeout
 
-from app.application.dtos.request.autenticacao import AutenticacaoRequestDTO
-from app.application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
-from app.application.dtos.request.cotacao import CTFCotacaoRequestDTO
-from app.application.dtos.request.retorno import CTFRetornoRequestDTO
-from app.infrastructure.middleware.routes import MiddlewareRoutes
+from application.dtos.request.autenticacao import AutenticacaoRequestDTO
+from application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
+from application.dtos.request.cotacao import CTFCotacaoRequestDTO
+from application.dtos.request.retorno import CTFRetornoRequestDTO
+from infrastructure.middleware.routes import MiddlewareRoutes
 
 
 class MiddlewareExchanger:

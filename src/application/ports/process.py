@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from app.domain.ports.middleware_port import MiddlewareClientPort
+from domain.ports.middleware_port import MiddlewareClientPort
 
 
 class Process(ABC):

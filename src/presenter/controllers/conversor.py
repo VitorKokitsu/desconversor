@@ -3,7 +3,7 @@ from typing import Any
 from fastapi import APIRouter, HTTPException
 from pydantic import ValidationError
 
-from app.presenter.schemas.process_conversor_request import ProcessConversorRequest
+from presenter.schemas.process_conversor_request import ProcessConversorRequest
 from dependencies import build_process_conversor
 
 router = APIRouter()

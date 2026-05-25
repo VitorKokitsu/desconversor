@@ -1,10 +1,10 @@
-from app.application.dtos.request.autenticacao import AutenticacaoRequestDTO
-from app.application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
-from app.application.dtos.request.cotacao import CTFCotacaoRequestDTO
-from app.application.dtos.request.retorno import CTFRetornoRequestDTO
-from app.application.dtos.response.middleware import MiddlewareResponse, MiddlewareResponseData
-from app.domain.ports.middleware_port import MiddlewareClientPort
-from app.infrastructure.middleware.exchanger import MiddlewareExchanger
+from application.dtos.request.autenticacao import AutenticacaoRequestDTO
+from application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
+from application.dtos.request.cotacao import CTFCotacaoRequestDTO
+from application.dtos.request.retorno import CTFRetornoRequestDTO
+from application.dtos.response.middleware import MiddlewareResponse, MiddlewareResponseData
+from domain.ports.middleware_port import MiddlewareClientPort
+from infrastructure.middleware.exchanger import MiddlewareExchanger
 
 
 class MiddlewareClient(MiddlewareClientPort):
