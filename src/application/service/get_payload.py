@@ -8,22 +8,6 @@ class GetPayload:
 
     @staticmethod
     def separate_data(raw_payload: dict[str, Any]) -> tuple[JobNameEnum, str, dict[str, Any]]:
-        job_key = next(
-            (key for key in raw_payload if key in {job.value for job in JobNameEnum}),
-            None,
-        )
-        if not job_key:
-            raise ValueError("Payload sem processo suportado")
+        [process_key, platform_key, _] = raw_payload.keys()
 
-        platform_key = next(
-            (
-                key
-                for key in raw_payload
-                if key != job_key and key not in GetPayload.IGNORED_METADATA_KEYS
-            ),
-            None,
-        )
-        if not platform_key:
-            raise ValueError("Payload sem dados de plataforma")
-
-        return JobNameEnum(job_key), platform_key, raw_payload[job_key]
+        return JobNameEnum(process_key), platform_key, raw_payload[process_key]
