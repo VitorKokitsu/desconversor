@@ -5,18 +5,13 @@ from odysseia.request.cotefacil.retorno import (
 )
 from odysseia.request.retorno import RetornoFaturamentoRequestDTO
 
+from application.service.protheus_payment import ProtheusPayment
+
 
 class RetornoMapper:
 
     @staticmethod
     def to_middleware(request: RetornoFaturamentoRequestDTO) -> CTFLRetornoFaturamentoRequestDTO:
-        condicao_pagamento = (
-            f"{request.pagamento.codigo}::"
-            f"{request.pagamento.forma}::"
-            f"{request.pagamento.metodo}::"
-            f"{"/".join(str(p) for p in request.pagamento.prazo)}"
-        )
-
         return CTFLRetornoFaturamentoRequestDTO(
             itens=[
                 CTFLRetornoFaturamentoRequestItemDTO(
@@ -44,7 +39,7 @@ class RetornoMapper:
                     codigo_pedido_cotefacil=request.id,
                     codigo_pedido_site=request.codigo_pedido_fornecedor,
                     motivo="-",
-                    codigo_condicao_pagamento=condicao_pagamento,
+                    codigo_condicao_pagamento=ProtheusPayment.build(request.pagamento),
                 )
             ],
             dataEnvio=request.data_envio.strftime("%d/%m/%Y %H:%M:%S"),

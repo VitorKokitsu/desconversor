@@ -8,6 +8,7 @@ from odysseia.request.cotefacil.pedido import (
 )
 from odysseia.request.pedido import PedidoRequestDTO
 
+from application.service.protheus_payment import ProtheusPayment
 
 
 class PedidoMapper:
@@ -17,19 +18,6 @@ class PedidoMapper:
         request: PedidoRequestDTO,
         platform: dict[str, Any],
     ) -> CTFLPedidoRequestDTO:
-        prazo = (
-            "/".join(str(p) for p in sorted(request.pagamento.prazo))
-            if request.pagamento.prazo
-            else "7"
-        )
-
-        condicao_pagamento = (
-            f"{request.pagamento.codigo}::"
-            f"{request.pagamento.forma}::"
-            f"{request.pagamento.metodo}::"
-            f"{prazo}"
-        )
-
         return CTFLPedidoRequestDTO(
             cnpj_fornecedor=request.fornecedor.cnpj,
             url_acesso=request.fornecedor.url_acesso,
@@ -44,7 +32,7 @@ class PedidoMapper:
                     codigo_cotacao=request.id_cotacao,
                     codigo_pedido_cliente=request.codigo_pedido_cliente,
                     numero_pedido_site=request.codigo_pedido_fornecedor,
-                    codigo_condicao_pagamento=condicao_pagamento,
+                    codigo_condicao_pagamento=ProtheusPayment.build(request.pagamento),
                     idPrazoPromocao=(
                         request.promocao.prazo_promocao
                         if request.promocao

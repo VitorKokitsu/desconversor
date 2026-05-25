@@ -5,23 +5,13 @@ from odysseia.request.cotefacil.cotacao import (
     CTFLCotacaoRequestItemDTO,
 )
 
+from application.service.protheus_payment import ProtheusPayment
+
+
 class CotacaoMapper:
 
     @staticmethod
     def to_middleware(request: CotacaoRequestDTO) -> CTFLCotacaoRequestDTO:
-        prazo = (
-            "/".join(str(p) for p in sorted(request.pagamento.prazo))
-            if request.pagamento.prazo
-            else "7"
-        )
-
-        condicao_pagamento =  (
-            f"{request.pagamento.codigo}::"
-            f"{request.pagamento.forma}::"
-            f"{request.pagamento.metodo}::"
-            f"{prazo}"
-        )
-
         return CTFLCotacaoRequestDTO(
             cnpj_fornecedor=request.fornecedor.cnpj,
             url_acesso=request.fornecedor.url_acesso,
@@ -34,7 +24,7 @@ class CotacaoMapper:
             clientes=[
                 CTFLCotacaoRequestClienteDTO(
                     codigo_cotacao=request.id,
-                    codigo_condicao_pagamento=condicao_pagamento,
+                    codigo_condicao_pagamento=ProtheusPayment.build(request.pagamento),
                     itens=[
                         CTFLCotacaoRequestItemDTO(
                             ean=item.gtin,
