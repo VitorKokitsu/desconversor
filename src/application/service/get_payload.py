@@ -4,7 +4,6 @@ from homero.enum import JobNameEnum
 
 
 class GetPayload:
-    IGNORED_METADATA_KEYS = {"id", "id_key", "transaction_id"}
 
     @staticmethod
     def separate_data(raw_payload: dict[str, Any]) -> tuple[JobNameEnum, str, dict[str, Any]]:
