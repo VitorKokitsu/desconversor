@@ -1,17 +1,16 @@
 from typing import Any
 
 from odysseia.request.condpgto import CondicaoPagamentoRequestDTO
-
-from application.dtos.request.autenticacao import AutenticacaoRequestDTO, AutenticacaoClienteRequestDTO
+from odysseia.request.pedpreco.autenticacao import PPAutenticacaoRequestDTO, PPAutenticacaoRequestClienteDTO
 
 
 class AutenticacaoMapper:
 
     @staticmethod
-    def to_middleware(request: CondicaoPagamentoRequestDTO, pp_platform: dict[str, Any]):
-        return AutenticacaoRequestDTO(
+    def to_middleware(request: CondicaoPagamentoRequestDTO, pp_platform: dict[str, Any]) -> PPAutenticacaoRequestDTO:
+        return PPAutenticacaoRequestDTO(
             clientes=[
-                AutenticacaoClienteRequestDTO(
+                PPAutenticacaoRequestClienteDTO(
                     cnpj_cliente=request.cliente.cnpj,
                     usuario=request.login.usuario if request.login else None,
                     senha=request.login.senha if request.login else None,

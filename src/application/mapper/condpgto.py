@@ -1,14 +1,12 @@
 from odysseia.request.condpgto import CondicaoPagamentoRequestDTO
-from odysseia.request.cotefacil.condpgto import CTFLCondicaoPagamentoRequestClienteDTO
-
-from application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
+from odysseia.request.cotefacil.condpgto import CTFLCondicaoPagamentoRequestClienteDTO, CTFLCondicaoPagamentoRequestDTO
 
 
 class CondpgtoMapper:
 
     @staticmethod
-    def to_middleware(request_dto: CondicaoPagamentoRequestDTO) -> CTFCondigcaoPagamentoRequestDTO:
-        return CTFCondigcaoPagamentoRequestDTO(
+    def to_middleware(request_dto: CondicaoPagamentoRequestDTO) -> CTFLCondicaoPagamentoRequestDTO:
+        return CTFLCondicaoPagamentoRequestDTO(
             cnpj=request_dto.cliente.cnpj,
             codigocliente=request_dto.cliente.codigo,
             siteFornecedor=request_dto.fornecedor.url_acesso,

@@ -1,17 +1,15 @@
 from odysseia.enums import TipoEmbalagemPedidoEnum
 from odysseia.request.cotefacil.retorno import (
     CTFLRetornoFaturamentoRequestClienteDTO,
-    CTFLRetornoFaturamentoRequestItemDTO,
+    CTFLRetornoFaturamentoRequestItemDTO, CTFLRetornoFaturamentoRequestDTO,
 )
 from odysseia.request.retorno import RetornoFaturamentoRequestDTO
-
-from application.dtos.request.retorno import CTFRetornoRequestDTO
 
 
 class RetornoMapper:
 
     @staticmethod
-    def to_middleware(request: RetornoFaturamentoRequestDTO) -> CTFRetornoRequestDTO:
+    def to_middleware(request: RetornoFaturamentoRequestDTO) -> CTFLRetornoFaturamentoRequestDTO:
         condicao_pagamento = (
             f"{request.pagamento.codigo}::"
             f"{request.pagamento.forma}::"
@@ -19,7 +17,7 @@ class RetornoMapper:
             f"{"/".join(str(p) for p in request.pagamento.prazo)}"
         )
 
-        return CTFRetornoRequestDTO(
+        return CTFLRetornoFaturamentoRequestDTO(
             itens=[
                 CTFLRetornoFaturamentoRequestItemDTO(
                     ean=item.gtin,

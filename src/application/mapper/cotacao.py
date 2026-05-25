@@ -1,12 +1,14 @@
 from odysseia.request.cotacao import CotacaoRequestDTO
-
-from application.dtos.request.cotacao import CTFCotacaoRequestDTO, CotacaoClienteDTO, CotacaoClienteItemDTO
-
+from odysseia.request.cotefacil.cotacao import (
+    CTFLCotacaoRequestDTO,
+    CTFLCotacaoRequestClienteDTO,
+    CTFLCotacaoRequestItemDTO,
+)
 
 class CotacaoMapper:
 
     @staticmethod
-    def to_middleware(request: CotacaoRequestDTO) -> CTFCotacaoRequestDTO:
+    def to_middleware(request: CotacaoRequestDTO) -> CTFLCotacaoRequestDTO:
         prazo = (
             "/".join(str(p) for p in sorted(request.pagamento.prazo))
             if request.pagamento.prazo
@@ -20,7 +22,7 @@ class CotacaoMapper:
             f"{prazo}"
         )
 
-        return CTFCotacaoRequestDTO(
+        return CTFLCotacaoRequestDTO(
             cnpj_fornecedor=request.fornecedor.cnpj,
             url_acesso=request.fornecedor.url_acesso,
             dadoAuxiliar=request.fornecedor.dado_auxiliar or "-",
@@ -30,14 +32,14 @@ class CotacaoMapper:
             idRepresentante=request.promocao.prazo_promocao,
             codigo_cotacao_matriz=request.id,
             clientes=[
-                CotacaoClienteDTO(
+                CTFLCotacaoRequestClienteDTO(
                     codigo_cotacao=request.id,
                     codigo_condicao_pagamento=condicao_pagamento,
                     itens=[
-                        CotacaoClienteItemDTO(
+                        CTFLCotacaoRequestItemDTO(
                             ean=item.gtin,
                             codigo_produto=item.codigo,
-                            descricao_produto=item.descricao,
+                            descricao_produto=item.descricao or "-",
                             quantidade_cotada=item.quantidade,
                             controle_preco=item.controle,
                         )

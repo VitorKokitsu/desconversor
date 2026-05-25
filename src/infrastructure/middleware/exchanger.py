@@ -2,11 +2,11 @@ import logging
 from time import sleep
 
 from httpx import Client, Response, Request, Timeout
+from odysseia.request.cotefacil.condpgto import CTFLCondicaoPagamentoRequestDTO
+from odysseia.request.cotefacil.cotacao import CTFLCotacaoRequestDTO
+from odysseia.request.cotefacil.retorno import CTFLRetornoFaturamentoRequestDTO
+from odysseia.request.pedpreco.autenticacao import PPAutenticacaoRequestDTO
 
-from application.dtos.request.autenticacao import AutenticacaoRequestDTO
-from application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
-from application.dtos.request.cotacao import CTFCotacaoRequestDTO
-from application.dtos.request.retorno import CTFRetornoRequestDTO
 from infrastructure.middleware.routes import MiddlewareRoutes
 
 
@@ -17,28 +17,28 @@ class MiddlewareExchanger:
         self.client = client
         self.routes = routes
 
-    def autenticacao(self, payload: AutenticacaoRequestDTO) -> Response:
+    def autenticacao(self, payload: PPAutenticacaoRequestDTO) -> Response:
         return self._send(
             request=self.routes.autenticacao(
                 data=payload.model_dump(mode="json"),
             ),
         )
 
-    def condpgto(self, payload: CTFCondigcaoPagamentoRequestDTO) -> Response:
+    def condpgto(self, payload: CTFLCondicaoPagamentoRequestDTO) -> Response:
         return self._send(
             request=self.routes.condpgto(
                 data=payload.model_dump(mode="json"),
             ),
         )
 
-    def cotacao(self, payload: CTFCotacaoRequestDTO) -> Response:
+    def cotacao(self, payload: CTFLCotacaoRequestDTO) -> Response:
         return self._send(
             request=self.routes.cotacao(
                 data=payload.model_dump(mode="json"),
             ),
         )
 
-    def retorno(self, payload: CTFRetornoRequestDTO) -> Response:
+    def retorno(self, payload: CTFLRetornoFaturamentoRequestDTO) -> Response:
         return self._send(
             request=self.routes.retorno(
                 data=payload.model_dump(mode="json"),

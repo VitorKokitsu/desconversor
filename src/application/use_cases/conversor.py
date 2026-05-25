@@ -8,6 +8,7 @@ from application.service.conversor_processes import (
     Process,
     RetornoFaturamentoProcess,
 )
+from application.service.conversor_processes.pedido import PedidoProcess
 from application.service.get_payload import GetPayload
 from application.ports.get_payload_port import PayloadStorage
 from application.ports.middleware_port import MiddlewareClientPort
@@ -28,6 +29,7 @@ class ConversorUseCase:
             JobNameEnum.CONDICAO_PAGAMENTO: CondicaoPagamentoProcess(middleware_client),
             JobNameEnum.COTACAO: CotacaoProcess(middleware_client),
             JobNameEnum.RETORNO_FATURAMENTO: RetornoFaturamentoProcess(middleware_client),
+            JobNameEnum.PEDIDO: PedidoProcess(middleware_client),
         }
 
     def execute(
