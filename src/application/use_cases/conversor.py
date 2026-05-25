@@ -9,8 +9,8 @@ from application.service.conversor_processes import (
     RetornoFaturamentoProcess,
 )
 from application.service.get_payload import GetPayload
-from domain.ports.get_payload_port import PayloadStorage
-from domain.ports.middleware_port import MiddlewareClientPort
+from application.ports.get_payload_port import PayloadStorage
+from application.ports.middleware_port import MiddlewareClientPort
 
 
 class ConversorUseCase:

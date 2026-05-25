@@ -3,7 +3,7 @@ from application.dtos.request.condpgto import CTFCondigcaoPagamentoRequestDTO
 from application.dtos.request.cotacao import CTFCotacaoRequestDTO
 from application.dtos.request.retorno import CTFRetornoRequestDTO
 from application.dtos.response.middleware import MiddlewareResponse, MiddlewareResponseData
-from domain.ports.middleware_port import MiddlewareClientPort
+from application.ports.middleware_port import MiddlewareClientPort
 from infrastructure.middleware.exchanger import MiddlewareExchanger
 
 
