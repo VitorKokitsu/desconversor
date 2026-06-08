@@ -22,9 +22,9 @@ class RetornoMapper:
                     codigo_faturamento=item.promocao,
                     quantidade=item.quantidade,
                     preco_fabrica=item.preco_bruto,
-                    preco_liquido=item.valor_liquido,
+                    preco_liquido=item.valor_liquido or 0.0,
                     preco_com_st=item.valor_liquido,
-                    preco_sem_st=item.valor_sem_st,
+                    preco_sem_st=item.valor_sem_st or 0.0,
                     descricao=item.descricao,
                     descontoInformado=item.desconto,
                 )
