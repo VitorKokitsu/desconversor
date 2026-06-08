@@ -1,0 +1,25 @@
+[project]
+name = "desconversor"
+version = "0.1.0"
+description = "API para converter payloads de integracao antes do envio ao middleware"
+requires-python = ">=3.14"
+dependencies = [
+    "boto3>=1.41.3",
+    "dynaconf>=3.2.12",
+    "httpx>=0.28.1",
+    "pydantic>=2.12.4",
+    "odysseia>=1.2.0",
+    "homero>=1.0.0",
+    "fastapi",
+    "uvicorn[standard]",
+]
+[dependency-groups]
+
+[[tool.uv.index]]
+name = "cotepypi"
+url = "https://INTEGRACOES-COTEFACIL:INTEGRACOES-COTEFACIL12345@pypi.cotefacil.net/simple"
+explicit = true
+
+[tool.uv.sources]
+homero = { index = "cotepypi" }
+odysseia = { index = "cotepypi" }
