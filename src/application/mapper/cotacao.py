@@ -1,3 +1,5 @@
+from typing import Any
+
 from odysseia.request.cotacao import CotacaoRequestDTO
 from odysseia.request.cotefacil.cotacao import (
     CTFLCotacaoRequestDTO,
@@ -11,7 +13,10 @@ from application.service.protheus_payment import ProtheusPayment
 class CotacaoMapper:
 
     @staticmethod
-    def to_middleware(request: CotacaoRequestDTO) -> CTFLCotacaoRequestDTO:
+    def to_middleware(
+        request: CotacaoRequestDTO,
+        platform: dict[str, Any],
+    ) -> CTFLCotacaoRequestDTO:
         return CTFLCotacaoRequestDTO(
             cnpj_fornecedor=request.fornecedor.cnpj,
             url_acesso=request.fornecedor.url_acesso,
@@ -19,7 +24,7 @@ class CotacaoMapper:
             usuario=request.login.usuario if request.login else None,
             senha=request.login.senha if request.login else None,
             use_zt="true" if request.conexao.zt else "false",
-            idRepresentante=request.promocao.prazo_promocao,
+            idRepresentante=platform.get("idRepresentante", 0),
             codigo_cotacao_matriz=request.id,
             clientes=[
                 CTFLCotacaoRequestClienteDTO(

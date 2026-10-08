@@ -6,6 +6,7 @@ from odysseia.request.cotefacil.condpgto import CTFLCondicaoPagamentoRequestDTO
 from odysseia.request.cotefacil.cotacao import CTFLCotacaoRequestDTO
 from odysseia.request.cotefacil.retorno import CTFLRetornoFaturamentoRequestDTO
 from odysseia.request.pedpreco.autenticacao import PPAutenticacaoRequestDTO
+from odysseia.request.pedpreco.ingestao import PPIngestaoRequestDTO
 
 from infrastructure.middleware.routes import MiddlewareRoutes
 
@@ -17,10 +18,19 @@ class MiddlewareExchanger:
         self.client = client
         self.routes = routes
 
-    def autenticacao(self, payload: PPAutenticacaoRequestDTO) -> Response:
+    def autenticacao(self, payload: PPAutenticacaoRequestDTO, nome_config: str) -> Response:
         return self._send(
             request=self.routes.autenticacao(
-                data=payload.model_dump(mode="json"),
+                data=payload.model_dump(mode="json", by_alias=True),
+                nome_config=nome_config,
+            ),
+        )
+
+    def ingestao(self, payload: PPIngestaoRequestDTO, nome_config: str) -> Response:
+        return self._send(
+            request=self.routes.ingestao(
+                data=payload.model_dump(mode="json", by_alias=True),
+                nome_config=nome_config,
             ),
         )
 

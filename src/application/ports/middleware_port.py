@@ -5,6 +5,7 @@ from odysseia.request.cotefacil.cotacao import CTFLCotacaoRequestDTO
 from odysseia.request.cotefacil.pedido import CTFLPedidoRequestDTO
 from odysseia.request.cotefacil.retorno import CTFLRetornoFaturamentoRequestDTO
 from odysseia.request.pedpreco.autenticacao import PPAutenticacaoRequestDTO
+from odysseia.request.pedpreco.ingestao import PPIngestaoRequestDTO
 
 from application.dtos.response.middleware import MiddlewareResponse
 
@@ -12,7 +13,11 @@ from application.dtos.response.middleware import MiddlewareResponse
 class MiddlewareClientPort(ABC):
 
     @abstractmethod
-    def send_autenticacao(self, payload: PPAutenticacaoRequestDTO) -> MiddlewareResponse:
+    def send_autenticacao(self, payload: PPAutenticacaoRequestDTO, nome_config: str) -> MiddlewareResponse:
+        pass
+
+    @abstractmethod
+    def send_ingestao(self, payload: PPIngestaoRequestDTO, nome_config: str) -> MiddlewareResponse:
         pass
 
     @abstractmethod

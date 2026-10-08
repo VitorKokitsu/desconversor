@@ -14,6 +14,14 @@ class Process(ABC):
 
         return self.middleware_client
 
+    @staticmethod
+    def _nome_config_obrigatorio(nome_config: str | None) -> str:
+        # As rotas do PedPreço no middleware exigem o nome da configuração, que não vem no payload do Protheus.
+        if not nome_config:
+            raise ValueError("nome_config é obrigatório para enviar processos do PedPreço")
+
+        return nome_config
+
     @abstractmethod
     def execute(
         self,
@@ -21,5 +29,6 @@ class Process(ABC):
         platform: str,
         platform_data: dict[str, Any],
         allow_send: bool,
+        nome_config: str | None = None,
     ) -> dict[str, Any]:
         pass

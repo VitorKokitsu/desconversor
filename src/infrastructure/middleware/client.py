@@ -3,6 +3,7 @@ from odysseia.request.cotefacil.cotacao import CTFLCotacaoRequestDTO
 from odysseia.request.cotefacil.pedido import CTFLPedidoRequestDTO
 from odysseia.request.cotefacil.retorno import CTFLRetornoFaturamentoRequestDTO
 from odysseia.request.pedpreco.autenticacao import PPAutenticacaoRequestDTO
+from odysseia.request.pedpreco.ingestao import PPIngestaoRequestDTO
 
 from application.dtos.response.middleware import MiddlewareResponse, MiddlewareResponseData
 from application.ports.middleware_port import MiddlewareClientPort
@@ -13,10 +14,16 @@ class MiddlewareClient(MiddlewareClientPort):
     def __init__(self, exchanger: MiddlewareExchanger) -> None:
         self.exchanger = exchanger
 
-    def send_autenticacao(self, payload: PPAutenticacaoRequestDTO) -> MiddlewareResponse:
-        response = self.exchanger.autenticacao(payload=payload)
+    def send_autenticacao(self, payload: PPAutenticacaoRequestDTO, nome_config: str) -> MiddlewareResponse:
+        response = self.exchanger.autenticacao(payload=payload, nome_config=nome_config)
 
         return MiddlewareResponse(data=response.json())
+
+    def send_ingestao(self, payload: PPIngestaoRequestDTO, nome_config: str) -> MiddlewareResponse:
+        response = self.exchanger.ingestao(payload=payload, nome_config=nome_config)
+
+        # A rota de ingestão responde uma única transação, e não uma lista.
+        return MiddlewareResponse(data=[response.json()])
 
     def send_condpgto(self, payload: CTFLCondicaoPagamentoRequestDTO) -> MiddlewareResponse:
         response = self.exchanger.condpgto(payload=payload)

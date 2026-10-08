@@ -1,12 +1,17 @@
-from typing import Any
+from typing import Annotated, Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import ValidationError
 
 from presenter.schemas.process_conversor_request import ProcessConversorRequest
 from dependencies import build_process_conversor
 
 router = APIRouter()
+
+NomeConfigQuery = Annotated[
+    str | None,
+    Query(description="Nome da configuração do middleware. Obrigatório para enviar processos do PedPreço."),
+]
 
 
 @router.post("/conversor")
@@ -16,9 +21,9 @@ def conversor(request: ProcessConversorRequest):
 
 
 @router.post("/conversor/enviar")
-def enviar(request: ProcessConversorRequest):
+def enviar(request: ProcessConversorRequest, nome_config: NomeConfigQuery = None):
     use_case = build_process_conversor(require_middleware=True)
-    return _execute_or_400(lambda: use_case.execute(request.transaction_id, allow_send=True))
+    return _execute_or_400(lambda: use_case.execute(request.transaction_id, allow_send=True, nome_config=nome_config))
 
 
 @router.post("/conversor/payload")
@@ -27,9 +32,9 @@ def payload(payload: dict[str, Any]):
     return _execute_or_400(lambda: use_case.payload(raw_payload=payload, allow_send=False))
 
 @router.post("/conversor/payload/enviar")
-def payload(payload: dict[str, Any]):
+def payload_enviar(payload: dict[str, Any], nome_config: NomeConfigQuery = None):
     use_case = build_process_conversor(require_middleware=True)
-    return _execute_or_400(lambda: use_case.payload(raw_payload=payload, allow_send=True))
+    return _execute_or_400(lambda: use_case.payload(raw_payload=payload, allow_send=True, nome_config=nome_config))
 
 def _execute_or_400(handler):
     try:

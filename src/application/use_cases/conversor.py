@@ -36,14 +36,16 @@ class ConversorUseCase:
         self,
         transaction_id: str,
         allow_send: bool,
+        nome_config: str | None = None,
     ) -> dict[str, Any]:
         raw_payload = self.get_payload.get_object(transaction_id)
-        return self.payload(raw_payload=raw_payload, allow_send=allow_send)
+        return self.payload(raw_payload=raw_payload, allow_send=allow_send, nome_config=nome_config)
 
     def payload(
         self,
         raw_payload: dict[str, Any],
         allow_send: bool = False,
+        nome_config: str | None = None,
     ) -> dict[str, Any]:
         job_name, platform, payload = GetPayload.separate_data(raw_payload)
         platform_data = raw_payload[platform]
@@ -57,4 +59,5 @@ class ConversorUseCase:
             platform=platform,
             platform_data=platform_data,
             allow_send=allow_send,
+            nome_config=nome_config,
         )

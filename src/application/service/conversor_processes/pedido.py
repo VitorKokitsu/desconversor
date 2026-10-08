@@ -13,6 +13,7 @@ class PedidoProcess(Process):
         platform: str,
         platform_data: dict[str, Any],
         allow_send: bool,
+        nome_config: str | None = None,
     ) -> dict[str, Any]:
         protheus_dto = PedidoRequestDTO(**payload)
         middleware_dto = PedidoMapper.to_middleware(protheus_dto, platform_data)

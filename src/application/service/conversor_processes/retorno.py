@@ -13,6 +13,7 @@ class RetornoFaturamentoProcess(Process):
         platform: str,
         platform_data: dict[str, Any],
         allow_send: bool,
+        nome_config: str | None = None,
     ) -> dict[str, Any]:
         protheus_dto = RetornoFaturamentoRequestDTO(**payload)
         middleware_dto = RetornoMapper.to_middleware(protheus_dto)
