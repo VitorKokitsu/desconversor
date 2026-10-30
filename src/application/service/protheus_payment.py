@@ -8,15 +8,7 @@ class ProtheusPayment:
         if not payment_data:
             return ""
 
-        prazo = (
-            "/".join(str(p) for p in sorted(payment_data.prazo))
-            if payment_data.prazo
-            else "7"
-        )
+        if payment_data.forma is None and payment_data.metodo is None and payment_data.prazo is None:
+            return payment_data.codigo or ""
 
-        return (
-            f"{payment_data.codigo}::"
-            f"{payment_data.forma}::"
-            f"{payment_data.metodo}::"
-            f"{prazo}"
-        )
+        return str(payment_data)
