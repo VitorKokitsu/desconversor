@@ -1,3 +1,5 @@
+from os import environ
+
 import uvicorn
 from starlette.middleware.cors import CORSMiddleware
 
@@ -13,7 +15,7 @@ app.add_middleware(
 
 
 def main() -> None:
-    uvicorn.run("asgi:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("asgi:app", host="0.0.0.0", port=8000, reload=environ.get("ENV", "local") == "local")
 
 
 if __name__ == "__main__":

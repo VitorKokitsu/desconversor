@@ -1,12 +1,13 @@
 from typing import Annotated, Any
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import ValidationError
 
 from presenter.schemas.process_conversor_request import ProcessConversorRequest
+from presenter.security.api_key import validar_api_key
 from dependencies import build_process_conversor
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(validar_api_key)])
 
 NomeConfigQuery = Annotated[
     str | None,
