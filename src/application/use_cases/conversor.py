@@ -3,6 +3,7 @@ from typing import Any
 from homero.enum import JobNameEnum
 
 from application.service.conversor_processes import (
+    BaseProdutosProcess,
     CondicaoPagamentoProcess,
     CotacaoProcess,
     Process,
@@ -26,6 +27,7 @@ class ConversorUseCase:
         self.middleware_client = middleware_client
         self.get_payload = get_payload
         self.processes: dict[JobNameEnum, Process] = {
+            JobNameEnum.BASE_PRODUTOS: BaseProdutosProcess(middleware_client),
             JobNameEnum.CONDICAO_PAGAMENTO: CondicaoPagamentoProcess(middleware_client),
             JobNameEnum.COTACAO: CotacaoProcess(middleware_client),
             JobNameEnum.RETORNO_FATURAMENTO: RetornoFaturamentoProcess(middleware_client),

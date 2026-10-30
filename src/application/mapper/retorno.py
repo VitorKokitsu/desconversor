@@ -1,3 +1,5 @@
+from typing import Any
+
 from odysseia.enums import TipoEmbalagemPedidoEnum
 from odysseia.request.cotefacil.retorno import (
     CTFLRetornoFaturamentoRequestClienteDTO,
@@ -11,7 +13,10 @@ from application.service.protheus_payment import ProtheusPayment
 class RetornoMapper:
 
     @staticmethod
-    def to_middleware(request: RetornoFaturamentoRequestDTO) -> CTFLRetornoFaturamentoRequestDTO:
+    def to_middleware(
+        request: RetornoFaturamentoRequestDTO,
+        platform: dict[str, Any],
+    ) -> CTFLRetornoFaturamentoRequestDTO:
         return CTFLRetornoFaturamentoRequestDTO(
             itens=[
                 CTFLRetornoFaturamentoRequestItemDTO(
@@ -47,7 +52,7 @@ class RetornoMapper:
             cnpj_fornecedor=request.fornecedor.cnpj,
             usuario=request.login.usuario if request.login else "-",
             senha=request.login.senha if request.login else "-",
-            idRepresentante=0,
+            idRepresentante=platform.get("idRepresentante", 0),
             url_acesso=request.fornecedor.url_acesso,
             dadoAuxiliar=request.fornecedor.dado_auxiliar,
             use_zt="true" if request.conexao.zt else "false",

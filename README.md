@@ -23,7 +23,7 @@ TRANSACTION_BUCKET=nome-do-bucket MIDDLEWARE_API_URL=http://localhost:8000 .venv
 - `POST /conversor/payload`: converte um payload informado diretamente no corpo da requisicao.
 - `POST /conversor/payload/enviar`: converte um payload informado diretamente no corpo da requisicao e envia ao middleware.
 
-As rotas de envio aceitam o query param `nome_config` (nome da configuracao no middleware), obrigatorio para processos do PedPreco (ingestao e autenticacao), cujas rotas no middleware exigem esse valor e ele nao vem no payload do Protheus. Exemplo: `POST /conversor/enviar?nome_config=nome-da-config`.
+As rotas de envio aceitam o query param `nome_config` (nome da configuracao no middleware), obrigatorio para processos do PedPreco (ingestao, autenticacao e retorno), cujas rotas no middleware exigem esse valor e ele nao vem no payload do Protheus. Exemplo: `POST /conversor/enviar?nome_config=nome-da-config`.
 
 Exemplo de corpo para rotas que usam S3:
 

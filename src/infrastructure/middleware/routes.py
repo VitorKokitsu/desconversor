@@ -25,6 +25,14 @@ class MiddlewareRoutes:
             json=data,
         )
 
+    def base(self, data: dict[str, Any]) -> Request:
+        return Request(
+            url=f"{self.__api_url}/cotefacil/fetchbaseprodutos",
+            params={"useZT": data["use_zt"]},
+            method="POST",
+            json=data,
+        )
+
     def condpgto(self, data: dict[str, Any]) -> Request:
         return Request(
             url=f"{self.__api_url}/cotefacil/fetchcondicoespagamento",
@@ -45,6 +53,14 @@ class MiddlewareRoutes:
         return Request(
             url=f"{self.__api_url}/cotefacil/fetchretornopedido",
             params={"useZT": data["use_zt"]},
+            method="POST",
+            json=data,
+        )
+
+    def retorno_pedpreco(self, data: dict[str, Any], nome_config: str) -> Request:
+        return Request(
+            url=f"{self.__api_url}/pedpreco/retorno",
+            params={"nome_config": nome_config, "use_zt": data["use_zt"]},
             method="POST",
             json=data,
         )

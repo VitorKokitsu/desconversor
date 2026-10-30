@@ -2,11 +2,13 @@ import logging
 from time import sleep
 
 from httpx import Client, Response, Request, Timeout
+from odysseia.request.cotefacil.base import CTFLBaseProdutosRequestDTO
 from odysseia.request.cotefacil.condpgto import CTFLCondicaoPagamentoRequestDTO
 from odysseia.request.cotefacil.cotacao import CTFLCotacaoRequestDTO
 from odysseia.request.cotefacil.retorno import CTFLRetornoFaturamentoRequestDTO
 from odysseia.request.pedpreco.autenticacao import PPAutenticacaoRequestDTO
 from odysseia.request.pedpreco.ingestao import PPIngestaoRequestDTO
+from odysseia.request.pedpreco.retorno import PPRetornoFaturamentoRequestDTO
 
 from infrastructure.middleware.routes import MiddlewareRoutes
 
@@ -34,6 +36,13 @@ class MiddlewareExchanger:
             ),
         )
 
+    def base(self, payload: CTFLBaseProdutosRequestDTO) -> Response:
+        return self._send(
+            request=self.routes.base(
+                data=payload.model_dump(mode="json"),
+            ),
+        )
+
     def condpgto(self, payload: CTFLCondicaoPagamentoRequestDTO) -> Response:
         return self._send(
             request=self.routes.condpgto(
@@ -52,6 +61,14 @@ class MiddlewareExchanger:
         return self._send(
             request=self.routes.retorno(
                 data=payload.model_dump(mode="json"),
+            ),
+        )
+
+    def retorno_pedpreco(self, payload: PPRetornoFaturamentoRequestDTO, nome_config: str) -> Response:
+        return self._send(
+            request=self.routes.retorno_pedpreco(
+                data=payload.model_dump(mode="json", by_alias=True),
+                nome_config=nome_config,
             ),
         )
 

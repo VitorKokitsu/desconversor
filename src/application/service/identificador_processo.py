@@ -15,3 +15,7 @@ class IdentificadorProcesso:
     def deriva_de_autenticacao(platform: str) -> bool:
         # A autenticação (PedPreço) é convertida pelo Protheus em uma condição de pagamento.
         return platform == PlataformaEnum.PEDPRECO
+
+    @staticmethod
+    def deriva_de_pedpreco(platform: str) -> bool:
+        return platform == PlataformaEnum.PEDPRECO
