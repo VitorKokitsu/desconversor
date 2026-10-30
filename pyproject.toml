@@ -8,7 +8,7 @@ dependencies = [
     "dynaconf>=3.2.12",
     "httpx>=0.28.1",
     "pydantic>=2.12.4",
-    "odysseia>=1.2.0",
+    "odysseia>=1.4.1",
     "homero>=1.0.0",
     "fastapi",
     "uvicorn[standard]",
