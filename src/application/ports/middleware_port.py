@@ -1,0 +1,52 @@
+from abc import ABC, abstractmethod
+
+from odysseia.request.cotefacil.base import CTFLBaseProdutosRequestDTO
+from odysseia.request.cotefacil.condpgto import CTFLCondicaoPagamentoRequestDTO
+from odysseia.request.cotefacil.cotacao import CTFLCotacaoRequestDTO
+from odysseia.request.cotefacil.pedido import CTFLPedidoRequestDTO
+from odysseia.request.cotefacil.retorno import CTFLRetornoFaturamentoRequestDTO
+from odysseia.request.pedpreco.autenticacao import PPAutenticacaoRequestDTO
+from odysseia.request.pedpreco.ingestao import PPIngestaoRequestDTO
+from odysseia.request.pedpreco.pedido import PPPedidoRequestDTO
+from odysseia.request.pedpreco.retorno import PPRetornoFaturamentoRequestDTO
+
+from application.dtos.response.middleware import MiddlewareResponse
+
+
+class MiddlewareClientPort(ABC):
+
+    @abstractmethod
+    def send_autenticacao(self, payload: PPAutenticacaoRequestDTO, nome_config: str) -> MiddlewareResponse:
+        pass
+
+    @abstractmethod
+    def send_ingestao(self, payload: PPIngestaoRequestDTO, nome_config: str) -> MiddlewareResponse:
+        pass
+
+    @abstractmethod
+    def send_base(self, payload: CTFLBaseProdutosRequestDTO) -> MiddlewareResponse:
+        pass
+
+    @abstractmethod
+    def send_condpgto(self, payload: CTFLCondicaoPagamentoRequestDTO) -> MiddlewareResponse:
+        pass
+
+    @abstractmethod
+    def send_cotacao(self, payload: CTFLCotacaoRequestDTO) -> MiddlewareResponse:
+        pass
+
+    @abstractmethod
+    def send_pedido(self, payload: CTFLPedidoRequestDTO) -> MiddlewareResponse:
+        pass
+
+    @abstractmethod
+    def send_retorno(self, payload: CTFLRetornoFaturamentoRequestDTO) -> MiddlewareResponse:
+        pass
+
+    @abstractmethod
+    def send_pedido_pedpreco(self, payload: PPPedidoRequestDTO, nome_config: str) -> MiddlewareResponse:
+        pass
+
+    @abstractmethod
+    def send_retorno_pedpreco(self, payload: PPRetornoFaturamentoRequestDTO, nome_config: str) -> MiddlewareResponse:
+        pass
