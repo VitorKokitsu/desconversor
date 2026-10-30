@@ -1,0 +1,70 @@
+name: terraform.yml
+on:
+  workflow_call:
+    inputs:
+      env:
+        type: string
+        description: "Qual ambiente executar (demo, production)"
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      AWS_DEFAULT_REGION:
+        required: true
+
+jobs:
+  terraform:
+    environment: ${{ inputs.env }}
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            tf:
+              - 'infra/**'
+            tf_global:
+              - 'infra/global/**'
+            tf_env:
+              - 'infra/${{ inputs.env }}/**'
+
+      - uses: actions/setup-node@v3
+        if: steps.filter.outputs.tf == 'true'
+        with:
+          node-version: '16'
+
+      - uses: hashicorp/setup-terraform@v2
+        if: steps.filter.outputs.tf == 'true'
+        with:
+          terraform_wrapper: false
+
+      - uses: aws-actions/configure-aws-credentials@v1-node16
+        if: steps.filter.outputs.tf == 'true'
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Terraform Init Global
+        if: steps.filter.outputs.tf == 'true' && steps.filter.outputs.tf_global == 'true'
+        run: terraform init -upgrade
+        working-directory: infra/global
+
+      - name: Terraform Apply Global
+        if: steps.filter.outputs.tf == 'true' && steps.filter.outputs.tf_global == 'true'
+        run: terraform apply --auto-approve
+        working-directory: infra/global
+
+      - name: Terraform Init ${{ inputs.env }}
+        if: steps.filter.outputs.tf == 'true'  && steps.filter.outputs.tf_env == 'true'
+        working-directory: infra/${{ inputs.env }}
+        run: terraform init -upgrade
+
+      - name: Terraform Apply ${{ inputs.env }}
+        if: steps.filter.outputs.tf == 'true'  && steps.filter.outputs.tf_env == 'true'
+        working-directory: infra/${{ inputs.env }}
+        run: terraform apply --auto-approve

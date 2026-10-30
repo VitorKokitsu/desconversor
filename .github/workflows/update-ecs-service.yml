@@ -1,0 +1,41 @@
+name: 'Update cluster service'
+
+on:
+  workflow_call:
+    inputs:
+      gh_environment:
+        description: 'The job environment'
+        required: true
+        type: string
+      service:
+        description: 'The name of ECS service to update with the new task def'
+        required: true
+        type: string
+      cluster:
+        description: 'The ECS cluster that will be deployed the tasks to.'
+        required: true
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        description: 'The access key ID used to make actions in the AWS.'
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        description: 'The access key secret used to make actions in the AWS.'
+        required: true
+      AWS_DEFAULT_REGION:
+        description: 'The AWS region in which the action will deploy the application.'
+        required: true
+
+jobs:
+  update-service:
+    runs-on: self-hosted
+    environment: ${{ inputs.gh_environment }}
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Forçar nova implantação
+        run: aws ecs update-service --cluster ${{ inputs.cluster }} --service ${{ inputs.service }} --force-new-deployment
